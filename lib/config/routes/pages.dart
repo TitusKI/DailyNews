@@ -2,7 +2,9 @@ import 'package:daily_news/config/routes/names.dart';
 import 'package:daily_news/core/constants/export.dart';
 import 'package:daily_news/features/daily_news/presentation/bloc/article/local/local_article_event.dart';
 import 'package:daily_news/features/daily_news/presentation/pages/article_detail/article_detail.dart';
+import 'package:daily_news/features/daily_news/presentation/pages/categories/catagories.dart';
 import 'package:daily_news/features/daily_news/presentation/pages/home/daily_news.dart';
+import 'package:daily_news/features/daily_news/presentation/pages/home/home.dart';
 import 'package:daily_news/features/daily_news/presentation/pages/saved_article/saved_article.dart';
 import 'package:daily_news/injection_container.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,13 @@ class AppPages {
     return [
       PageEntity(
         route: RoutesName.HOME,
+        page: const HomeScreen(),
+        bloc: BlocProvider(
+          create: (_) => sl<RemoteArticleBloc>(),
+        ),
+      ),
+      PageEntity(
+        route: RoutesName.DAILY_NEWS,
         page: const DailyNews(),
         bloc: BlocProvider(
           create: (_) => sl<RemoteArticleBloc>(),
@@ -24,6 +33,13 @@ class AppPages {
         page: const ArticleDetailView(),
         bloc: BlocProvider(
           create: (_) => sl<LocalArticleBloc>(),
+        ),
+      ),
+      PageEntity(
+        route: RoutesName.ARTICLE_CATEGORY,
+        page: ArticleCategory(),
+        bloc: BlocProvider(
+          create: (_) => sl<RemoteArticleBloc>()..stream,
         ),
       ),
       PageEntity(
