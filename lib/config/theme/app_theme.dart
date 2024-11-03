@@ -16,3 +16,7 @@ AppBarTheme appBarTheme() {
     titleTextStyle: TextStyle(color: Colors.grey, fontSize: 18),
   );
 }
+
+class AppColors {
+  static const Color primaryColor = Color(0xff6495ed);
+}
