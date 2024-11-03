@@ -1,12 +1,19 @@
+import 'package:daily_news/core/util/date_formatter.dart';
+
 const String newsApiBaseURL = 'https://newsapi.org/v2';
-const String newsApiKey = 'c253d2daf33f4ac58364bdd87638611f';
+const String newsApiKey = 'd8b7c4314951450f8f536ad3ec8e1693';
 
 const String countryQuery = 'us';
+// const String categoryQuery = 'general';
+const String domains = 'bbc.co.uk, techcrunch.com, engadget.com';
+const String popularDomains = 'bbc.co.uk, techcrunch.com';
+DateTime date = DateTime.now().subtract(const Duration(days: 4));
 
-const String categoryQuery = 'general';
+String recentDomains =
+    'bbc.co.uk, techcrunch.com, engadget.com&${formatDate(date)}';
 
 enum Category {
-  entertaiment,
+  entertainment,
   general,
   health,
   science,
@@ -21,5 +28,5 @@ enum SortBy {
   publishedAt,
 }
 
-const String getArticles =
-    "$newsApiBaseURL/top-headlines?country=$countryQuery&category=$categoryQuery&apiKey=$newsApiKey";
+// const String getArticles =
+//     "$newsApiBaseURL/top-headlines?country=$countryQuery&category=$categoryQuery&apiKey=$newsApiKey";
