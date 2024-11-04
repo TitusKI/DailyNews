@@ -327,12 +327,12 @@ class _NewsApiServices implements NewsApiServices {
   @override
   Future<HttpResponse<NewsResponse>> getAllNewsArticles({
     String? apiKey,
-    String? country,
+    String? domains,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'apiKey': apiKey,
-      r'country': country,
+      r'domains': domains,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
@@ -368,13 +368,13 @@ class _NewsApiServices implements NewsApiServices {
   @override
   Future<HttpResponse<NewsResponse>> getPopularArticles({
     String? apiKey,
-    String? country,
+    String? domains,
     String? sortBy,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'apiKey': apiKey,
-      r'country': country,
+      r'domains': domains,
       r'sortBy': sortBy,
     };
     queryParameters.removeWhere((k, v) => v == null);
@@ -411,13 +411,13 @@ class _NewsApiServices implements NewsApiServices {
   @override
   Future<HttpResponse<NewsResponse>> getRecentArticles({
     String? apiKey,
-    String? country,
+    String? domains,
     String? sortBy,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'apiKey': apiKey,
-      r'country': country,
+      r'domains': domains,
       r'sortBy': sortBy,
     };
     queryParameters.removeWhere((k, v) => v == null);

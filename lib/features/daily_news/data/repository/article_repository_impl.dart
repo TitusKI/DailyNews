@@ -19,7 +19,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
       final httpResponse = await _newsApiServices.getNewsArticles(
         apiKey: newsApiKey,
         country: countryQuery,
-        category: categoryQuery,
+        category: Category.general.name,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         print('REsponse in the Repository implmentation');
@@ -39,19 +39,19 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
-  Future<List<ArticleEntity>> getSavedArticles() {
-    return _appDatabase.articleDao.getArticles();
+  Future<List<ArticleEntity>> getSavedArticles() async {
+    return await _appDatabase.articleDao.getArticles();
   }
 
   @override
-  Future<void> removeArticle(ArticleEntity article) {
-    return _appDatabase.articleDao
+  Future<void> removeArticle(ArticleEntity article) async {
+    return await _appDatabase.articleDao
         .deleteArticle(ArticleModel.fromEntity(article));
   }
 
   @override
-  Future<void> saveArticle(ArticleEntity article) {
-    return _appDatabase.articleDao
+  Future<void> saveArticle(ArticleEntity article) async {
+    return await _appDatabase.articleDao
         .insertArticle(ArticleModel.fromEntity(article));
   }
 
@@ -60,7 +60,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
     try {
       final httpResponse = await _newsApiServices.getAllNewsArticles(
         apiKey: newsApiKey,
-        country: countryQuery,
+        domains: domains,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         print('REsponse in the Repository implmentation');
@@ -75,6 +75,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
         ));
       }
     } on DioException catch (e) {
+      print(e.toString());
       return DataFailed(e);
     }
   }
@@ -88,7 +89,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
           category: Category.business.name);
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         print('REsponse in the Repository implmentation');
-        print(httpResponse.data);
+        print(httpResponse.data.articles[0]);
         return DataSuccess(httpResponse.data.articles);
       } else {
         return DataFailed(DioException(
@@ -99,6 +100,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
         ));
       }
     } on DioException catch (e) {
+      print(e.toString());
       return DataFailed(e);
     }
   }
@@ -109,7 +111,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
       final httpResponse = await _newsApiServices.getEntertainmentArticles(
         apiKey: newsApiKey,
         country: countryQuery,
-        category: Category.entertaiment.name,
+        category: Category.entertainment.name,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         print('REsponse in the Repository implmentation');
@@ -158,7 +160,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
     try {
       final httpResponse = await _newsApiServices.getPopularArticles(
         apiKey: newsApiKey,
-        country: countryQuery,
+        domains: popularDomains,
         sortBy: SortBy.popularity.name,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
@@ -174,6 +176,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
         ));
       }
     } on DioException catch (e) {
+      print(e.toString());
       return DataFailed(e);
     }
   }
@@ -183,7 +186,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
     try {
       final httpResponse = await _newsApiServices.getRecentArticles(
         apiKey: newsApiKey,
-        country: countryQuery,
+        domains: recentDomains,
         sortBy: SortBy.publishedAt.name,
       );
       if (httpResponse.response.statusCode == HttpStatus.ok) {
@@ -199,6 +202,7 @@ class ArticleRepositoryImpl implements ArticleRepository {
         ));
       }
     } on DioException catch (e) {
+      print(e.toString());
       return DataFailed(e);
     }
   }

@@ -54,26 +54,20 @@ abstract class NewsApiServices {
   @GET('/everything')
   Future<HttpResponse<NewsResponse>> getAllNewsArticles({
     @Query("apiKey") String? apiKey,
-    @Query("country") String? country,
+    @Query("domains") String? domains,
   });
   @GET('/everything')
   Future<HttpResponse<NewsResponse>> getPopularArticles({
     @Query("apiKey") String? apiKey,
-    @Query("country") String? country,
+    @Query("domains") String? domains,
     @Query("sortBy") String? sortBy,
   });
   @GET('/everything')
   Future<HttpResponse<NewsResponse>> getRecentArticles({
     @Query("apiKey") String? apiKey,
-    @Query("country") String? country,
+    @Query("domains") String? domains,
     @Query("sortBy") String? sortBy,
   });
-  //  @GET('/top-headlines')
-  // Future<HttpResponse<NewsResponse>> getNewsArticles({
-  //   @Query("apiKey") String? apiKey,
-  //   @Query("country") String? country,
-  //   @Query("category") String? category,
-  // });
 }
 
 class NewsResponse {
