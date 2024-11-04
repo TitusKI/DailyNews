@@ -4,7 +4,7 @@ import 'package:daily_news/core/usecase/usecase.dart';
 import 'package:daily_news/features/daily_news/domain/entities/article.dart';
 import 'package:daily_news/injection_container.dart';
 
-class GetEntertainmentArticles
+class GetEntertainmentArticlesUsecases
     implements Usecase<DataState<List<ArticleEntity>>, void> {
   @override
   Future<DataState<List<ArticleEntity>>> call({void parms}) async {

@@ -2,7 +2,6 @@ import 'package:daily_news/core/resources/data_state.dart';
 import 'package:daily_news/features/daily_news/domain/entities/article.dart';
 
 abstract class ArticleRepository {
-  Future<DataState<List<ArticleEntity>>> getAllNewsArticles();
   // Top - Headlines via category
 //general
   Future<DataState<List<ArticleEntity>>> getNewsArticles();
@@ -23,6 +22,7 @@ abstract class ArticleRepository {
   Future<DataState<List<ArticleEntity>>> getPopularArticles();
 // publishedAt recent
   Future<DataState<List<ArticleEntity>>> getRecentArticles();
+  Future<DataState<List<ArticleEntity>>> getAllNewsArticles();
 
   Future<List<ArticleEntity>> getSavedArticles();
   Future<void> saveArticle(ArticleEntity article);
