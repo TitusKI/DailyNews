@@ -3,15 +3,11 @@ import 'package:daily_news/features/daily_news/domain/usecases/remove_article.da
 import 'package:daily_news/features/daily_news/domain/usecases/save_article.dart';
 import 'package:daily_news/features/daily_news/presentation/bloc/article/local/local_article_event.dart';
 import 'package:daily_news/features/daily_news/presentation/bloc/article/local/local_article_state.dart';
+import 'package:daily_news/injection_container.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LocalArticleBloc extends Bloc<LocalArticleEvent, LocalArticlesState> {
-  final GetSavedArticleUseCase _getSavedArticleUseCase;
-  final SaveArticleUseCase _saveArticleUseCase;
-  final RemoveArticleUseCase _removeArticleUseCase;
-  LocalArticleBloc(this._getSavedArticleUseCase, this._saveArticleUseCase,
-      this._removeArticleUseCase)
-      : super(const LocalArticlesLoading()) {
+  LocalArticleBloc() : super(const LocalArticlesLoading()) {
     on<GetSavedArticleEvent>(_getSavedArticle);
     on<SaveArticleEvent>(_saveArticle);
     on<RemoveArticleEvent>(_removeArtile);
@@ -19,21 +15,24 @@ class LocalArticleBloc extends Bloc<LocalArticleEvent, LocalArticlesState> {
 
   void _getSavedArticle(
       GetSavedArticleEvent event, Emitter<LocalArticlesState> emit) async {
-    final articles = await _getSavedArticleUseCase();
+    final articles = await sl<GetSavedArticleUseCase>().call();
     emit(LocalArticlesDone(articles));
   }
 
   void _removeArtile(
       RemoveArticleEvent event, Emitter<LocalArticlesState> emit) async {
-    await _removeArticleUseCase(parms: event.article);
-    final articles = await _getSavedArticleUseCase();
+    await sl<RemoveArticleUseCase>().call(parms: event.article);
+    print(event.article);
+    print("Article deleted successfully");
+    final articles = await sl<GetSavedArticleUseCase>().call();
+    print(articles.length);
     emit(LocalArticlesDone(articles));
   }
 
   void _saveArticle(
       SaveArticleEvent event, Emitter<LocalArticlesState> emit) async {
-    await _saveArticleUseCase(parms: event.article);
-    final articles = await _getSavedArticleUseCase();
+    await sl<SaveArticleUseCase>().call(parms: event.article);
+    final articles = await sl<GetSavedArticleUseCase>().call();
     emit(LocalArticlesDone(articles));
   }
 }
