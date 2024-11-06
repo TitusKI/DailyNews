@@ -1,29 +1,16 @@
 import 'package:daily_news/features/daily_news/domain/entities/article.dart';
-import 'package:daily_news/features/daily_news/presentation/bloc/article/remote/remote_article_bloc.dart';
-import 'package:daily_news/features/daily_news/presentation/bloc/article/remote/remote_article_event.dart';
-import 'package:daily_news/features/daily_news/presentation/bloc/article/remote/remote_article_state.dart';
 import 'package:daily_news/features/daily_news/presentation/pages/article_detail/article_detail.dart';
 import 'package:daily_news/features/daily_news/presentation/widgets/article_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes/routes.dart';
 
-class DailyNews extends StatefulWidget {
-  const DailyNews({super.key});
+class DailyNews extends StatelessWidget {
+  final String? newsType;
+  final List<ArticleEntity>? articles;
+  const DailyNews({super.key, this.newsType, this.articles});
 
-  @override
-  State<DailyNews> createState() => _DailyNewsState();
-}
-
-class _DailyNewsState extends State<DailyNews> {
 // late RemoteArticleBloc _bloc
-  @override
-  void initState() {
-    super.initState();
-    context.read<RemoteArticleBloc>().add(const GetArticlesEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +21,8 @@ class _DailyNewsState extends State<DailyNews> {
 
   _buildAppBar(BuildContext context) {
     return AppBar(
-      title: const Text("Daily News",
-          style: TextStyle(
+      title: Text(newsType ?? "",
+          style: const TextStyle(
             color: Colors.black,
           )),
       actions: [
@@ -54,53 +41,54 @@ class _DailyNewsState extends State<DailyNews> {
   }
 
   _buildBody() {
-    return BlocBuilder<RemoteArticleBloc, RemoteArticleState>(
-      builder: (context, state) {
-        if (state is RemoteArticleLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (state is RemoteArticleError) {
-          return InfoBannerActionsFb1(
-            primaryColor: const Color(0xff4338CA),
-            text: "Your internet connection was restored",
-            actions: [
-              TextButton(
-                child: const Text(
-                  'TRY AGAIN',
-                  style: TextStyle(color: Color(0xff4338CA)),
-                ),
-                onPressed: () {
-                  context
-                      .read<RemoteArticleBloc>()
-                      .add(const GetArticlesEvent());
-                },
-              ),
-            ],
-            icon: const Icon(
-              Icons.signal_wifi_connected_no_internet_4,
-              color: Colors.white,
-            ),
-          );
-        }
+    return
+        // BlocBuilder<RemoteArticleBloc, RemoteArticleState>(
+        //   builder: (context, state) {
+        // if (state is RemoteArticleLoading) {
+        //   return const Center(
+        //     child: CircularProgressIndicator(),
+        //   );
+        // }
+        // if (state is RemoteArticleError) {
+        //   return InfoBannerActionsFb1(
+        //     primaryColor: const Color(0xff4338CA),
+        //     text: "Your internet connection was restored",
+        //     actions: [
+        //       TextButton(
+        //         child: const Text(
+        //           'TRY AGAIN',
+        //           style: TextStyle(color: Color(0xff4338CA)),
+        //         ),
+        //         onPressed: () {
+        //           context
+        //               .read<RemoteArticleBloc>()
+        //               .add(const GetArticlesEvent());
+        //         },
+        //       ),
+        //     ],
+        //     icon: const Icon(
+        //       Icons.signal_wifi_connected_no_internet_4,
+        //       color: Colors.white,
+        //     ),
+        //   );
+        // }
 
-        if (state is RemoteArticleDone) {
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => _onArticlePressed(context, state.articles![index]),
-                child: ArticleWidgets(
-                  article: state.articles?[index],
-                ),
-              );
-            },
-            itemCount: state.articles!.length,
-          );
-        }
-        return Container();
+        // if (state is RemoteArticleDone) {
+        ListView.builder(
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () => _onArticlePressed(context, articles![index]),
+          child: ArticleWidgets(
+            article: articles?[index],
+          ),
+        );
       },
+      itemCount: articles!.length,
     );
+
+    //     return Container();
+    // //   },
+    // );
   }
 
   void _onArticlePressed(BuildContext context, ArticleEntity? article) {

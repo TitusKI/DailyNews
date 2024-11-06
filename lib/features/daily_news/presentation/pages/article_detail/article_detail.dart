@@ -1,3 +1,4 @@
+import 'package:daily_news/config/theme/app_theme.dart';
 import 'package:daily_news/features/daily_news/domain/entities/article.dart';
 import 'package:daily_news/features/daily_news/presentation/bloc/article/local/local_article_bloc.dart';
 import 'package:daily_news/features/daily_news/presentation/bloc/article/local/local_article_event.dart';
@@ -121,7 +122,7 @@ class ArticleDetailView extends HookWidget {
         onPressed: () => _onFloatingActionButton(context),
         child: const Icon(
           Icons.bookmark,
-          color: Colors.white,
+          color: AppColors.primaryColor,
         ),
       ),
     );
@@ -135,7 +136,7 @@ class ArticleDetailView extends HookWidget {
     BlocProvider.of<LocalArticleBloc>(context).add(SaveArticleEvent(article!));
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.primaryColor,
         content: Text('Article Saved Successfuly'),
       ),
     );
