@@ -1,4 +1,12 @@
 import 'package:daily_news/features/daily_news/domain/usecases/everything/get_all_news_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/everything/get_popular_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/everything/get_recent_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_business_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_entertainment_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_health_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_science_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_sports_articles.dart';
+import 'package:daily_news/features/daily_news/domain/usecases/top_headlines/get_technology_articles.dart';
 
 import 'core/constants/export.dart';
 
@@ -26,6 +34,32 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetAllNewsArticlesUsecase>(
     GetAllNewsArticlesUsecase(),
   );
+  sl.registerSingleton<GetBusinessArticlesUsecase>(
+    GetBusinessArticlesUsecase(),
+  );
+  sl.registerSingleton<GetSportsArticlesUsecase>(
+    GetSportsArticlesUsecase(),
+  );
+  sl.registerSingleton<GetTechnologyArticlesUsecases>(
+    GetTechnologyArticlesUsecases(),
+  );
+  sl.registerSingleton<GetScienceArticlesUsecases>(
+    GetScienceArticlesUsecases(),
+  );
+  sl.registerSingleton<GetEntertainmentArticlesUsecases>(
+    GetEntertainmentArticlesUsecases(),
+  );
+  sl.registerSingleton<GetHealthArticlesUsecases>(
+    GetHealthArticlesUsecases(),
+  );
+  sl.registerSingleton<GetPopularArticlesUsecases>(
+    GetPopularArticlesUsecases(),
+  );
+
+  sl.registerSingleton<GetRecentArticlesUsecases>(
+    GetRecentArticlesUsecases(),
+  );
+
   // Get Saved data from local
   sl.registerSingleton<GetSavedArticleUseCase>(
     GetSavedArticleUseCase(sl()),
@@ -43,9 +77,8 @@ Future<void> initializeDependencies() async {
   // it gets a new instance when a state is changes
   // RemoteArticleBloc
   sl.registerFactory<RemoteArticleBloc>(
-    () => RemoteArticleBloc(sl()),
+    () => RemoteArticleBloc(),
   );
   // LocalArticleBloc
-  sl.registerFactory<LocalArticleBloc>(
-      () => LocalArticleBloc(sl(), sl(), sl()));
+  sl.registerFactory<LocalArticleBloc>(() => LocalArticleBloc());
 }
