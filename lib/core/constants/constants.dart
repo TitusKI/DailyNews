@@ -28,5 +28,5 @@ enum SortBy {
   publishedAt,
 }
 
-// const String getArticles =
-//     "$newsApiBaseURL/top-headlines?country=$countryQuery&category=$categoryQuery&apiKey=$newsApiKey";
+String getArticles =
+    "$newsApiBaseURL/top-headlines?country=$countryQuery&category=${Category.general.name}&apiKey=$newsApiKey";
