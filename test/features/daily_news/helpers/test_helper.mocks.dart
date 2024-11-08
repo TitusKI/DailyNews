@@ -98,32 +98,6 @@ class _FakeResponse_5<T1> extends _i1.SmartFake implements _i7.Response<T1> {
 /// See the documentation for Mockito's code generation for more information.
 class MockArticleRepository extends _i1.Mock implements _i8.ArticleRepository {
   @override
-  _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>> getAllNewsArticles() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getAllNewsArticles,
-          [],
-        ),
-        returnValue: _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>.value(
-            _FakeDataState_0<List<_i10.ArticleEntity>>(
-          this,
-          Invocation.method(
-            #getAllNewsArticles,
-            [],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>.value(
-                _FakeDataState_0<List<_i10.ArticleEntity>>(
-          this,
-          Invocation.method(
-            #getAllNewsArticles,
-            [],
-          ),
-        )),
-      ) as _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>);
-
-  @override
   _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>> getNewsArticles() =>
       (super.noSuchMethod(
         Invocation.method(
@@ -353,6 +327,32 @@ class MockArticleRepository extends _i1.Mock implements _i8.ArticleRepository {
           this,
           Invocation.method(
             #getRecentArticles,
+            [],
+          ),
+        )),
+      ) as _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>);
+
+  @override
+  _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>> getAllNewsArticles() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllNewsArticles,
+          [],
+        ),
+        returnValue: _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>.value(
+            _FakeDataState_0<List<_i10.ArticleEntity>>(
+          this,
+          Invocation.method(
+            #getAllNewsArticles,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i9.Future<_i2.DataState<List<_i10.ArticleEntity>>>.value(
+                _FakeDataState_0<List<_i10.ArticleEntity>>(
+          this,
+          Invocation.method(
+            #getAllNewsArticles,
             [],
           ),
         )),
